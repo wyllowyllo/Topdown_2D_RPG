@@ -6,12 +6,18 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public TalkManager talkManager;
+    public QuestManager questManager;
     public GameObject talkPanel;
     public Text talkText;
     public GameObject scanObj;
     public Image portraitImage;
     public bool IsAction;
     public int talkIndex;
+
+    private void Start()
+    {
+        Debug.Log(questManager.CheckQuest());
+    }
     public void Action(GameObject scan)
     { 
             
@@ -25,13 +31,16 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNpc)
     {
-        string talkData=talkManager.GetTalk(id, talkIndex);
+        int questTalkIndex = questManager.GetquestTalkIndex(id);
+        string talkData=talkManager.GetTalk(id+questTalkIndex, talkIndex);
 
 
+        //Conversation end
         if (talkData == null)
         {
             IsAction = false;
             talkIndex = 0;
+            Debug.Log(questManager.CheckQuest(id)); //다음 퀘스트로
             return;
         }
 
