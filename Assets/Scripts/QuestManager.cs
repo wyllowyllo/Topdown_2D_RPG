@@ -22,7 +22,7 @@ public class QuestManager : MonoBehaviour
 
     public int GetquestTalkIndex(int id)
     {
-        return questId+questActionIndex;
+        return questId+questActionIndex;  //questActionIndex : 퀘스트 간 순서 정하기 위해 사용
     }
     public string CheckQuest(int id)
     {

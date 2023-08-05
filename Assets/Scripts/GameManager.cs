@@ -7,13 +7,16 @@ public class GameManager : MonoBehaviour
 {
     public TalkManager talkManager;
     public QuestManager questManager;
-    public GameObject talkPanel;
-    public Text talkText;
+    public Animator talkPanel;
+    //public Text talkText;
     public GameObject scanObj;
     public Image portraitImage;
+    public Animator portraitAnimator;
     public bool IsAction;
     public int talkIndex;
+    public Sprite prevPortrait;
 
+    public TypingEffect talkText;
     private void Start()
     {
         Debug.Log(questManager.CheckQuest());
@@ -24,15 +27,29 @@ public class GameManager : MonoBehaviour
             scanObj = scan;
             ObjData objData = scanObj.GetComponent<ObjData>();
             Talk(objData.Id, objData.IsNpc);
-           
-        
-        talkPanel.SetActive(IsAction);
+
+
+        talkPanel.SetBool("IsShown", IsAction);
     }
 
     void Talk(int id, bool isNpc)
     {
-        int questTalkIndex = questManager.GetquestTalkIndex(id);
-        string talkData=talkManager.GetTalk(id+questTalkIndex, talkIndex);
+        //set talk data
+        int questTalkIndex;
+        string talkData="";
+       
+
+        if (talkText.isAnim)
+        {
+            talkText.SetMsg("");
+            return;
+        }
+            
+        else
+        {
+            questTalkIndex = questManager.GetquestTalkIndex(id);
+            talkData = talkManager.GetTalk(id + questTalkIndex, talkIndex);
+        }
 
 
         //Conversation end
@@ -46,14 +63,22 @@ public class GameManager : MonoBehaviour
 
         if (isNpc)
         {
-            talkText.text = talkData.Split(':')[0];  //구분자를 통해 나누기
+            //talkText.text = talkData.Split(':')[0];  //구분자를 통해 나누기
+            talkText.SetMsg(talkData.Split(':')[0]);
 
             portraitImage.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
             portraitImage.color=new Color(1, 1, 1, 1);
+
+            if (prevPortrait != portraitImage.sprite)
+            {
+                portraitAnimator.SetTrigger("doEffect");
+                prevPortrait = portraitImage.sprite;
+            }
         }
         else
         {
-            talkText.text = talkData;
+            //talkText.text = talkData;
+            talkText.SetMsg(talkData);
             portraitImage.color = new Color(1, 1, 1, 0);
         }
         IsAction = true;
