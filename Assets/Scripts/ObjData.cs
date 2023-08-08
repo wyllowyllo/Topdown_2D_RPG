@@ -5,7 +5,8 @@ using UnityEngine;
 public class ObjData : MonoBehaviour
 {
     // Start is called before the first frame update
+
     public int Id;
     public bool IsNpc;
-
+    public string name = "";
 }

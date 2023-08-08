@@ -18,7 +18,7 @@ public class player_move : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
-       
+        transform.position = new Vector3(0.33f, 2.11f, 0);
     }
 
     // Update is called once per frame
