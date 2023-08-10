@@ -100,21 +100,26 @@ public class GameManager : MonoBehaviour
         //in the case of barely used key input, they are handled in this func(Update) normally.
         if (Input.GetButtonDown("Cancel"))
         {
-            if (menuPanel.activeSelf)
-            { // if the menuPanel is already poped
-                menuPanel.SetActive(false);
-                IsAction = false;
-            }
 
-            else
-            {
-                menuPanel.SetActive(true);
-                IsAction = true;
-            }
-
+            SubmenuActive();
 
         }
 
+    }
+
+    public void SubmenuActive()
+    {
+        if (menuPanel.activeSelf)
+        { // if the menuPanel is already poped
+            menuPanel.SetActive(false);
+            IsAction = false;
+        }
+
+        else
+        {
+            menuPanel.SetActive(true);
+            IsAction = true;
+        }
     }
 
     public void GameSave()

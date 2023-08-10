@@ -18,6 +18,7 @@ public class QuestManager : MonoBehaviour
     {
         questList.Add(10, new QuestData("마을 사람들과 인사하기", new int[] {1000,2000}));
         questList.Add(20, new QuestData("루도의 동전", new int[] { 5000,2000 }));
+        questList.Add(30, new QuestData("퀘스트 올 클리어!", new int[] { 0 }));
     }
 
     public int GetquestTalkIndex(int id)
